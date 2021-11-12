@@ -2,10 +2,10 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <TodoHeader :addTodoItem="addTodoItem"></TodoHeader>
-      <TodoList :todos="todos"
-                :changeFinished="changeFinished"
+      <TodoList :todos="todos" :changeFinished="changeFinished"
                 :deleteItem="deleteItem"></TodoList>
-      <TodoFoot :todos="todos"/>
+      <TodoFoot :todos="todos"
+                :changeAllFinished="changeAllFinished"/>
     </div>
   </div>
 </template>
@@ -37,11 +37,19 @@ export default {
         }
       })
     },
+    changeAllFinished: function (status) {
+      this.todos.forEach((todo) => {
+        todo.finished = status
+      });
+    },
     deleteItem: function (id) {
-      this.todos=this.todos.filter(todo => {
-        todo.id !== id
+      this.todos = this.todos.filter(todo => {
+        //filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+        //这个写法可以进行如下理解
+        return todo.id !== id;
       })
     }
+
   },
   components: {
     TodoList,

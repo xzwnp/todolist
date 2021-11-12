@@ -6,14 +6,14 @@
       <input type="checkbox" :checked="todo.finished" @change="handle(todo.id)"/>
       <span>{{ todo.name }}</span>
     </label>
-    <button class="btn btn-danger" @click="deleteItem(todo.id)">删除</button>
+    <button class="btn btn-danger" @click="subDeleteItem(todo.id)">删除</button>
   </li>
 </template>
 
 <script>
 export default {
   name: "TodoItem",
-  props: ['todo','changeFinished'],
+  props: ['todo','changeFinished','deleteItem'],
   data() {
     return {
       itemName: null,
@@ -24,7 +24,8 @@ export default {
     handle: function (id) {
       this.changeFinished(id);
     },
-    deleteItem:function (id){
+    //避免跟父类方法重名！
+    subDeleteItem:function (id){
       this.deleteItem(id);
     }
   }
